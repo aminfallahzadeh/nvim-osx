@@ -232,7 +232,7 @@ return {
 			},
 
 			-- lsp & lspsaga
-			{ "K", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover Doc", mode = "n" },
+			-- { "K", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover Doc", mode = "n" },
 			{ "<leader>D", "<cmd>Lspsaga show_line_diagnostics<cr>", desc = "Lsp Line Diagnostics", mode = "n" },
 			{ "<leader>o", "<cmd>Lspsaga outline<cr>", desc = "Lsp Outline", mode = "n" },
 
