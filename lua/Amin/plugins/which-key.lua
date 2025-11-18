@@ -243,7 +243,14 @@ return {
 			{ "<leader>cdt", "<cmd>Lspsaga peek_type_definition<cr>", desc = "Lsp Type Definition", mode = "n" },
 			{ "<leader>cg", "<cmd>Lspsaga goto_definition<cr>", desc = "Lsp Go To Definition", mode = "n" },
 			{ "<leader>cgt", "<cmd>Lspsaga goto_type_definition<cr>", desc = "Lsp Go To Type Definition", mode = "n" },
-			{ "<leader>ca", "<cmd>Lspsaga code_action<cr>", desc = "Lsp Code Action", mode = "n" },
+			{
+				"<leader>ca",
+				function()
+					require("tiny-code-action").code_action()
+				end,
+				desc = "Lsp Code Action",
+				mode = { "n", "x" },
+			},
 			{ "<leader>cr", "<cmd>Lspsaga rename<cr>", desc = "Lspsaga Smart Rename", mode = "n" },
 			{ "<leader>cs", "<cmd>Lspsaga show_cursor_diagnostics<cr>", desc = "Lsp Cursor Diagnostics", mode = "n" },
 			{ "<leader>cp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "Lsp Previous Diagnostic", mode = "n" },

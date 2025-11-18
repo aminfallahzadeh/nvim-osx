@@ -1,14 +1,4 @@
 return {
-	-- Lu
-	-- -- {
-	-- 	"shaunsingh/nord.nvim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	-- optionally set the colorscheme within lazy config
-	-- 	init = function()
-	-- 		vim.cmd("colorscheme nord")
-	-- 	end,
-	-- },
 	{
 		"gbprod/nord.nvim",
 		lazy = false,
@@ -36,6 +26,8 @@ return {
 					highlights.FloatBorder = { fg = "#88c0d0" }
 					highlights.TelescopeBorder = { fg = "#88c0d0" }
 					highlights.DiagnosticUnnecessary = {}
+
+					-- vim diagnostics
 					highlights.DiagnosticVirtualTextError = { bg = "#2e3441", fg = "#bf616a", italic = true }
 					highlights.DiagnosticVirtualTextHint = { bg = "#2e3441", fg = "#81a0c1", italic = true }
 					highlights.DiagnosticVirtualTextInfo = { bg = "#2e3441", fg = "#81a0c1", italic = true }
@@ -47,10 +39,6 @@ return {
 					highlights.BlinkCmpSource = { bg = "#2e3441" }
 					highlights.BlinkCmpDocBorder = { fg = "#88c0d0" }
 					highlights.BlinkCmpDocSeparator = { fg = "#ffffff" }
-					-- 				DiagnosticVirtualTextError = { bg = "#191724" },
-					-- 				DiagnosticVirtualTextHint = { bg = "#191724" },
-					-- 				DiagnosticVirtualTextInfo = { bg = "#191724" },
-					-- 				DiagnosticVirtualTextWarn = { bg = "#191724" },
 				end,
 			})
 
