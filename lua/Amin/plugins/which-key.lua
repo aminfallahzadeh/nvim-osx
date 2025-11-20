@@ -29,6 +29,7 @@ return {
 	},
 	config = function(_, opts)
 		local wk = require("which-key")
+		local snacks = require("snacks")
 		wk.setup(opts)
 		-- Register custom keymaps under <leader>
 		wk.add({
@@ -62,9 +63,19 @@ return {
 			{ "<leader>w_", "<cmd>resize -5<cr>", desc = "Decrease Pane Height", mode = "n" },
 
 			-- plugins
-			{ "<C-s>", "<cmd>MarkdownPreviewToggle<cr>", desc = "Toggle Markdown Preview", mode = "n" },
+			-- { "<C-s>", "<cmd>MarkdownPreviewToggle<cr>", desc = "Toggle Markdown Preview", mode = "n" },
 			{ "<leader>dn", "<cmd>NoiceDismiss<cr>", desc = "Dismiss Noice Message", mode = "n" },
 			{ "<leader>?", "<cmd>WhichKey<cr>", desc = "Open WhichKey", mode = "n" },
+
+			-- neotest
+			{
+				"<leader>tn",
+				function()
+					require("neotest").run.run()
+				end,
+				desc = "Run Neotest Nearest Test",
+				mode = "n",
+			},
 
 			-- editor
 			{ "J", ":m '>+1<CR>gv=gv", desc = "Moves Lines Down", mode = "v" },
@@ -81,19 +92,11 @@ return {
 				"<leader>s",
 				[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 				desc = "Replace Word Under Cursor",
-				mode = "n",
+				mode = { "n", "v" },
 			},
 
-			-- telescope & snacks picker
+			-- picker
 			{ "<leader>f", group = "file" },
-			{ "<leader>fR", "<cmd>Telescope lsp_references<cr>", desc = "Open Telescope Lsp Refrences", mode = "n" },
-			{ "<leader>fD", "<cmd>Telescope lsp_definitions<cr>", desc = "Open Telescope Lsp Definitions", mode = "n" },
-			{
-				"<leader>fi",
-				"<cmd>Telescope lsp_implementations<cr>",
-				desc = "Open Telescope Lsp Implementations",
-				mode = "n",
-			},
 			{
 				"<leader>fp",
 				function()
@@ -108,7 +111,7 @@ return {
 			{
 				"<leader>ff",
 				function()
-					require("snacks").picker.files()
+					snacks.picker.files()
 				end,
 				desc = "Find File",
 				mode = "n",
@@ -116,7 +119,7 @@ return {
 			{
 				"<leader>fg",
 				function()
-					require("snacks").picker.grep()
+					snacks.picker.grep()
 				end,
 				desc = "Open Picker Live Grep",
 				mode = "n",
@@ -124,7 +127,7 @@ return {
 			{
 				"<leader>fws",
 				function()
-					require("snacks").picker.grep_word()
+					snacks.picker.grep_word()
 				end,
 				desc = "Open Picker Live Grep",
 				mode = "n",
@@ -132,24 +135,47 @@ return {
 			{
 				"<leader>fk",
 				function()
-					require("snacks").picker.keymaps({ layout = "ivy" })
+					snacks.picker.keymaps()
 				end,
 				desc = "Open Picker Live Grep",
 				mode = "n",
 			},
-			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Open Telescope Buffers", mode = "n" },
-			{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Open Telescope Help Tags", mode = "n" },
-			{ "<leader>fd", "<cmd>Telescope diagnostics<cr>", desc = "Open Telescope Diagnostics", mode = "n" },
+			{
+				"<leader>fb",
+				function()
+					snacks.picker.buffers()
+				end,
+				desc = "Open Picker Buffers",
+				mode = "n",
+			},
+			{
+				"<leader>fh",
+				function()
+					snacks.picker.help()
+				end,
+				desc = "Open Picker Help Tags",
+				mode = "n",
+			},
+			{
+				"<leader>fd",
+				function()
+					snacks.picker.diagnostics()
+				end,
+				desc = "Open Picker Diagnostics",
+				mode = "n",
+			},
 			{
 				"<leader>fx",
-				"<cmd>lua require('telescope').extensions.recent_files.pick()<cr>",
-				desc = "Open Telescope Recent Fiels",
+				function()
+					snacks.picker.recent()
+				end,
+				desc = "Open Picker Recent Fiels",
 				mode = "n",
 			},
 			{
 				"<leader>fc",
 				function()
-					require("snacks").picker.files({ cwd = vim.fn.stdpath("config") })
+					snacks.picker.files({ cwd = vim.fn.stdpath("config") })
 				end,
 				desc = "Open Picker Config Files",
 				mode = "n",
@@ -157,17 +183,17 @@ return {
 			{
 				"<leader>ft",
 				function()
-					require("snacks").picker.todo_comments()
+					snacks.picker.todo_comments()
 				end,
-				desc = "Open Telescope Todo",
+				desc = "Open Picker Todo",
 				mode = "n",
 			},
 			{
 				"<leader>fT",
 				function()
-					require("snacks").picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+					snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
 				end,
-				desc = "Open Telescope Todo",
+				desc = "Open Picker Todo",
 				mode = "n",
 			},
 
@@ -175,7 +201,7 @@ return {
 			{
 				"<leader>lg",
 				function()
-					require("snacks").lazygit()
+					snacks.lazygit()
 				end,
 				desc = "Open Lazygit",
 				mode = "n",
@@ -220,7 +246,6 @@ return {
 			-- yazi
 			{ "<leader>-", "<cmd>Yazi<cr>", desc = "Open Yazi Current", mode = { "n", "v" } },
 			{ "<leader>yw", "<cmd>Yazi cwd<cr>", desc = "Open Yazi In Neovim CWD", mode = { "n", "v" } },
-			-- { "<C-n>", "<cmd>Yazi toggle<cr>", desc = "Toggle Yazi", mode = { "n", "v" } },
 			{
 				"<C-n>",
 				function()
@@ -231,18 +256,9 @@ return {
 				mode = { "n", "v" },
 			},
 
-			-- lsp & lspsaga
-			-- { "K", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover Doc", mode = "n" },
-			{ "<leader>D", "<cmd>Lspsaga show_line_diagnostics<cr>", desc = "Lsp Line Diagnostics", mode = "n" },
-			{ "<leader>o", "<cmd>Lspsaga outline<cr>", desc = "Lsp Outline", mode = "n" },
-
+			-- lsp
 			{ "<leader>c", group = "lsp" },
 			{ "<leader>cD", "vim.lsp.buf.declaration", desc = "Go To Declaration", mode = "n" },
-			{ "<leader>cf", "<cmd>Lspsaga finder<cr>", desc = "Lsp Finder", mode = "n" },
-			{ "<leader>cd", "<cmd>Lspsaga peek_definition<cr>", desc = "Lsp Definition", mode = "n" },
-			{ "<leader>cdt", "<cmd>Lspsaga peek_type_definition<cr>", desc = "Lsp Type Definition", mode = "n" },
-			{ "<leader>cg", "<cmd>Lspsaga goto_definition<cr>", desc = "Lsp Go To Definition", mode = "n" },
-			{ "<leader>cgt", "<cmd>Lspsaga goto_type_definition<cr>", desc = "Lsp Go To Type Definition", mode = "n" },
 			{
 				"<leader>ca",
 				function()
@@ -251,13 +267,9 @@ return {
 				desc = "Lsp Code Action",
 				mode = { "n", "x" },
 			},
-			{ "<leader>cr", "<cmd>Lspsaga rename<cr>", desc = "Lspsaga Smart Rename", mode = "n" },
-			{ "<leader>cs", "<cmd>Lspsaga show_cursor_diagnostics<cr>", desc = "Lsp Cursor Diagnostics", mode = "n" },
-			{ "<leader>cp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "Lsp Previous Diagnostic", mode = "n" },
-			{ "<leader>cn", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "Lsp Next Diagnostic", mode = "n" },
 
 			-- neogit
-			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit UI", mode = "n" },
+			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit UI" },
 		})
 	end,
 }

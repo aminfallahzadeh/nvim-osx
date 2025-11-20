@@ -68,20 +68,6 @@ local function setup_macro_refresh(lualine)
 			})
 		end,
 	})
-	-- vim.api.nvim_create_autocmd("RecordingLeave", {
-	-- 	callback = function()
-	-- 		local timer = vim.loop.new_timer()
-	-- 		timer:start(
-	-- 			50,
-	-- 			0,
-	-- 			vim.schedule_wrap(function()
-	-- 				lualine.refresh({
-	-- 					place = { "statusline" },
-	-- 				})
-	-- 			end)
-	-- 		)
-	-- 	end,
-	-- })
 end
 
 local function macro_recording_status()
@@ -150,7 +136,13 @@ return {
 				sections = {
 					lualine_a = {
 						-- { "mode", separator = { left = "", right = "" }, right_padding = 2 },
-						{ "mode", right_padding = 2 },
+						{
+							"mode",
+							fmt = function(mode)
+								-- mode is the full name returned by lualine
+								return mode:sub(1, 1) -- take only the first letter
+							end,
+						},
 						macro_recording_status(),
 					},
 					lualine_b = {

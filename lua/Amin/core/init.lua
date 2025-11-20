@@ -1,3 +1,2 @@
 require("Amin.core.options")
-require("Amin.core.keymaps")
-
+require("Amin.core.autocmds")

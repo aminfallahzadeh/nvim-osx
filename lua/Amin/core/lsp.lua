@@ -1,7 +1,7 @@
+-- vars
 local icons = require("Amin.core.icons")
 
--- enable servers
--- vim.lsp.enable({ "lua_ls", "css_ls", "emmet_ls" })
+-- LSP servers
 local servers = {
 	"lua_ls",
 	"cssls",
@@ -86,10 +86,10 @@ for _, server_name in ipairs(servers) do
 		else
 			-- If config load failed, enable with default config
 			vim.notify(string.format("Failed to load config for %s, using defaults", server_name), vim.log.levels.WARN)
-			vim.lsp.enable(server_name, { capabilities = capabilities })
+			vim.lsp.enable(server_name, true)
 		end
 	else
 		-- No config file, use default config
-		vim.lsp.enable(server_name, { capabilities = capabilities })
+		vim.lsp.enable(server_name, true)
 	end
 end
