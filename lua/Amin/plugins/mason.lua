@@ -60,6 +60,8 @@ return {
 				"clangd",
 				"denols",
 				"eslint-lsp",
+				"debugpy",
+				"js-debug-adapter",
 				-- { 'eslint_d', version = '13.1.2' },
 			},
 

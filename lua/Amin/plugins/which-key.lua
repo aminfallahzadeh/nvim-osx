@@ -3,6 +3,7 @@ return {
 	event = "VeryLazy",
 	opts = {
 		delay = 1000,
+		preset = "helix",
 		-- icons = {
 		-- 	rules = {
 		-- 		{ pattern = "tab", icon = "", color = "cyan" },
